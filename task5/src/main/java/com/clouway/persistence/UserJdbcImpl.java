@@ -1,0 +1,67 @@
+package com.clouway.persistence;
+
+import com.clouway.core.User;
+import com.clouway.core.ConnectionProvider;
+import com.clouway.core.RegisterException;
+import com.clouway.core.UserRepository;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * Created by clouway on 26.05.16.
+ */
+public class UserJdbcImpl implements UserRepository {
+  private ConnectionProvider connectionProvider;
+
+  public UserJdbcImpl(ConnectionProvider connectionProvider) {
+    this.connectionProvider = connectionProvider;
+  }
+
+  public void register(User user) {
+    Connection connection = connectionProvider.get();
+    PreparedStatement statement = null;
+    try {
+      statement = connection.prepareStatement("INSERT INTO users (username,password,email) VALUES (?,?,?)");
+      statement.setString(1, user.getUsername());
+      statement.setString(2, user.getPassword());
+      statement.setString(3, user.getEmail());
+      statement.execute();
+    } catch (SQLException sql) {
+      sql.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public User findByEmail(String email) {
+    Connection connection = connectionProvider.get();
+    User user = null;
+    PreparedStatement statement = null;
+    try {
+      statement = connection.prepareStatement("SELECT * FROM users WHERE email=?");
+      statement.setString(1, email);
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        user = new User(resultSet.getString("username"), resultSet.getString("password"), resultSet.getString("email"));
+      }
+      resultSet.close();
+    } catch (SQLException sql) {
+      sql.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    return user;
+  }
+}
+
