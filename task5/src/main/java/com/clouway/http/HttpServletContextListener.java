@@ -19,7 +19,7 @@ public class HttpServletContextListener implements ServletContextListener {
     servletContext.addServlet("login", new LoginPage()).addMapping("/login");
     servletContext.addServlet("logincontroller", new LoginController(new UserJdbcImpl(new PerRequestConnectionProvider()))).addMapping("/logincontroller");
     servletContext.addServlet("registercontroller", new RegisterController(new UserJdbcImpl(new PerRequestConnectionProvider()))).addMapping("/registercontroller");
-    servletContext.addServlet("register", new RegisterPage(new UserJdbcImpl(new PerRequestConnectionProvider()))).addMapping("/register");
+    servletContext.addServlet("register", new RegisterPage()).addMapping("/register");
     servletContext.addServlet("welcomehomepage", new UserAccountHomepage()).addMapping("/welcomehomepage");
   }
 

@@ -1,18 +1,14 @@
 package com.clouway.http;
 
-import com.clouway.core.OnlineUserRepository;
-import com.clouway.core.User;
-import com.clouway.core.UserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+
 
 /**
  * Created by clouway on 19.05.16.

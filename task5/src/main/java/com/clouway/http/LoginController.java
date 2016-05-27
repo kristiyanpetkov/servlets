@@ -3,7 +3,6 @@ package com.clouway.http;
 import com.clouway.core.User;
 import com.clouway.core.UserRepository;
 import com.clouway.core.UserValidator;
-import com.clouway.persistence.UserJdbcImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * Created by clouway on 27.05.16.

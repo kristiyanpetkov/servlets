@@ -5,49 +5,4 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
 
-  <!--<servlet>-->
-    <!--<servlet-name>LoginPage</servlet-name>-->
-   <!--<servlet-class>com.clouway.http.LoginPagePage</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>LoginPage</servlet-name>-->
-    <!--<url-pattern>/login</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-  <!--<servlet>-->
-    <!--<servlet-name>Welcome Home Page</servlet-name>-->
-    <!--<servlet-class>com.clouway.http.BankWelcomePagee</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>Welcome Home Page</servlet-name>-->
-    <!--<url-pattern>/welcomehomepage</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-  <!--<filter>-->
-    <!--<filter-name>LoginPage Filter</filter-name>-->
-    <!--<filter-class>com.clouway.SessionFilterer</filter-class>-->
-  <!--</filter>-->
-  <!--<filter-mapping>-->
-    <!--<filter-name>LoginPage Filter</filter-name>-->
-    <!--<url-pattern>/welcomehomepage</url-pattern>-->
-  <!--</filter-mapping>-->
-  <!---->
-  <!--<servlet>-->
-    <!--<servlet-name>RegisterPage</servlet-name>-->
-    <!--<servlet-class>com.clouway.RegisterPage</servlet-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>RegisterPage</servlet-name>-->
-    <!--<url-pattern>/register</url-pattern>-->
-  <!--</servlet-mapping>-->
-
-  <!--<servlet>-->
-    <!--<servlet-name>RegisterPage</servlet-name>-->
-    <!--<servlet-class>com.clouway.http.Registeret-class>-->
-  <!--</servlet>-->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>RegisterPage</servlet-name>-->
-    <!--<url-pattern>/registerservlet</url-pattern>-->
-  <!--</servlet-mapping>-->
-
 </web-app>

@@ -2,7 +2,6 @@ package com.clouway.persistence;
 
 import com.clouway.core.User;
 import com.clouway.core.ConnectionProvider;
-import com.clouway.core.RegisterException;
 import com.clouway.core.UserRepository;
 
 import java.sql.Connection;

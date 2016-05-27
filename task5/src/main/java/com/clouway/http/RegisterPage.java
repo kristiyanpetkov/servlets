@@ -16,11 +16,6 @@ import java.io.PrintWriter;
  */
 @WebServlet(name = "RegisterPage")
 public class RegisterPage extends HttpServlet {
-  private UserRepository userRepository;
-
-  public RegisterPage(UserRepository userRepository) {
-    this.userRepository = userRepository;
-  }
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
