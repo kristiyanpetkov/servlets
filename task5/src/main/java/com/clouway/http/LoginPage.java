@@ -11,21 +11,18 @@ import java.io.PrintWriter;
 
 
 /**
- * Created by clouway on 19.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
 @WebServlet(name = "LoginPage")
 public class LoginPage extends HttpServlet {
 
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    PrintWriter out = resp.getWriter();
-    printPage(out, (String) req.getAttribute("errorMsg"));
-  }
-
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    printPage(out, "");
+    String errorMessage = "";
 
+    if (request.getParameter("errorMsg") != null) {
+      errorMessage = request.getParameter("errorMsg");
+    }
+    printPage(response.getWriter(), errorMessage);
   }
 
   private void printPage(PrintWriter out, String errMsg) {

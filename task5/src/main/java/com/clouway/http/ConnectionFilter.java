@@ -15,7 +15,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
- * Created by clouway on 25.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 25.05.16.
  */
 public class ConnectionFilter implements Filter {
   private static ThreadLocal<Connection> connections = new ThreadLocal<Connection>();

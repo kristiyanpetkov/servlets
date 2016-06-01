@@ -12,19 +12,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by clouway on 19.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
 @WebServlet(name = "RegisterPage")
 public class RegisterPage extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    printPage(resp.getWriter(), "");
-  }
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    printPage(out, (String) request.getAttribute("errorMsg"));
+    String errorMessage = "";
+
+    if (req.getParameter("errorMsg") != null) {
+      errorMessage = req.getParameter("errorMsg");
+    }
+    printPage(resp.getWriter(), errorMessage);
   }
 
   private void printPage(PrintWriter out, String errorMessage) {

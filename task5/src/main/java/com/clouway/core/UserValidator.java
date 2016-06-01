@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by clouway on 27.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
 public class UserValidator implements Validator {
   public boolean isValid(String email, String password) {

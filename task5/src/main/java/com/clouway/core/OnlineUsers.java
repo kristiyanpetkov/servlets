@@ -4,9 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by clouway on 26.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 26.05.16.
  */
-public class OnlineUserRepository {
+public class OnlineUsers {
   public static Set<String> loggedUserEmails = new HashSet<String>();
 
   public static void userLogin(String email) {

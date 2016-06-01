@@ -10,19 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by clouway on 19.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
-public class SessionFilter implements Filter {
+public class SecurityFilter implements Filter {
 
   private UserRepository userRepository;
 
-  public SessionFilter(UserRepository userRepository) {
+  public SecurityFilter(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
-
-  //  private Validator userValidator = getUserValidator();
-//  private Validator passwordValidator = getPasswordValidator();
-//  private userStore = DependencyManager.findByEmail(UserStore.class);
 
   public void init(FilterConfig filterConfig) throws ServletException {
 

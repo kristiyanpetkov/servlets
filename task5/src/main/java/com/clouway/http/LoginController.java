@@ -14,12 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by clouway on 27.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
 @WebServlet(name = "LoginController")
 public class LoginController extends HttpServlet {
   private UserRepository userRepository;
-  private RequestDispatcher rd;
 
   public LoginController(UserRepository userRepository) {
     this.userRepository = userRepository;
@@ -27,20 +26,18 @@ public class LoginController extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     UserValidator userValidator = new UserValidator();
-    rd = request.getRequestDispatcher("/login");
 
     String email = request.getParameter("email");
     String password = request.getParameter("password");
 
     if (userValidator.isValid(email, password)) {
-      authorize(email, password, response, request);
+      authorize(email, password, response);
     } else {
-      request.setAttribute("errorMsg", "<h2 style='color:red'>Username or password invalid format!</h2>");
-      rd.forward(request, response);
+      response.sendRedirect("/login?errorMsg=<h2 style='color:red'>Username or password invalid format!</h2>");
     }
   }
 
-  private void authorize(String email, String password, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
+  private void authorize(String email, String password, HttpServletResponse response) throws IOException, ServletException {
     User user = userRepository.findByEmail(email);
     if (user != null) {
       if (user.getPassword().equals(password)) {
@@ -48,17 +45,10 @@ public class LoginController extends HttpServlet {
         response.addCookie(cookie);
         response.sendRedirect("/welcomehomepage");
       } else {
-        request.setAttribute("errorMsg", "<h2 style='color:red'>Wrong password!</h2>");
-        rd.forward(request, response);
+        response.sendRedirect("/login?errorMsg=<h2 style='color:red'>Wrong password!</h2");
       }
     } else {
-      request.setAttribute("errorMsg", "<h2 style='color:red'>No such username!</h2");
-      rd.forward(request, response);
+      response.sendRedirect("/login?errorMsg=<h2 style='color:red'>No such username!</h2");
     }
-  }
-
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
   }
 }

@@ -10,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by clouway on 26.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 26.05.16.
  */
-public class UserJdbcImpl implements UserRepository {
+public class PersistentUserRepository implements UserRepository {
   private ConnectionProvider connectionProvider;
 
-  public UserJdbcImpl(ConnectionProvider connectionProvider) {
+  public PersistentUserRepository(ConnectionProvider connectionProvider) {
     this.connectionProvider = connectionProvider;
   }
 

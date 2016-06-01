@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * Created by clouway on 26.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 26.05.16.
  */
 public class VisitorsListener implements HttpSessionListener {
   ServletContext context = null;

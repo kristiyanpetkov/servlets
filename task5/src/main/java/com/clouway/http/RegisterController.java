@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by clouway on 27.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
 @WebServlet(name = "RegisterController")
 public class RegisterController extends HttpServlet {
@@ -34,20 +34,14 @@ public class RegisterController extends HttpServlet {
 
     if (userValidator.isValid(userName, password, email)) {
       if (checkIfExist(email)) {
-        request.setAttribute("errorMsg", "<h2 style='color:red'>Username with such an email already exist!</h2>");
-        rd.forward(request, response);
+        response.sendRedirect("/register?errorMsg=<h2 style='color:red'>Username with such an email already exist!</h2>");
       } else {
         userRepository.register(new User(userName, password, email));
-        rd = request.getRequestDispatcher("/login");
-        request.setAttribute("errorMsg", "<h2 style='color:green'>Registration successfull!</h2>");
-        rd.forward(request, response);
+        response.sendRedirect("/login?errorMsg=<h2 style='color:green'>Registration successfull!</h2>");
       }
     } else {
-      request.setAttribute("errorMsg", "<h2 style='color:red'>Input data not in valid format! Username and password should be between 6-16 characters and can contain only letters and digits.</h2>");
-      rd.forward(request, response);
+      response.sendRedirect("/register?errorMsg=<h3style='color:red'>Input data is not in a valid format! Username and password should be between 6-16 characters and can contain only letters and digits.</h3>");
     }
-
-
   }
 
   private boolean checkIfExist(String email) {
@@ -57,9 +51,5 @@ public class RegisterController extends HttpServlet {
     } else {
       return false;
     }
-  }
-
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
   }
 }

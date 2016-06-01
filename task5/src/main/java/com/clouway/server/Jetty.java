@@ -7,7 +7,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 
 
 /**
- * Created by clouway on 26.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 26.05.16.
  */
 public class Jetty {
 

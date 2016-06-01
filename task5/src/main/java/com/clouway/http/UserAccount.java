@@ -1,6 +1,6 @@
 package com.clouway.http;
 
-import com.clouway.core.OnlineUserRepository;
+import com.clouway.core.OnlineUsers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Created by clouway on 19.05.16.
+ * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
-@WebServlet(name = "UserAccountHomepage")
-public class UserAccountHomepage extends HttpServlet {
+@WebServlet(name = "UserAccount")
+public class UserAccount extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     logout(request, response);
@@ -31,7 +31,7 @@ public class UserAccountHomepage extends HttpServlet {
     for (int i = 0; i < cookies.length; i++) {
       if (cookies[i].getName().equals("sessionId")) {
         cookies[i].setMaxAge(0);
-        OnlineUserRepository.userLogout(cookies[i].getValue());
+        OnlineUsers.userLogout(cookies[i].getValue());
         response.addCookie(cookies[i]);
         response.sendRedirect("/login");
       }
