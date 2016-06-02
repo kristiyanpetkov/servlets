@@ -1,10 +1,10 @@
-package com.clouway.http;
+package com.clouway.adapter.http;
 
-import com.clouway.core.User;
+import com.clouway.core.Session;
+import com.clouway.core.SessionRepository;
 import com.clouway.core.UserRepository;
 import com.clouway.core.UserValidator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
@@ -19,9 +20,11 @@ import java.io.IOException;
 @WebServlet(name = "LoginController")
 public class LoginController extends HttpServlet {
   private UserRepository userRepository;
+  private SessionRepository sessionRepository;
 
-  public LoginController(UserRepository userRepository) {
+  public LoginController(UserRepository userRepository, SessionRepository sessionRepository) {
     this.userRepository = userRepository;
+    this.sessionRepository=sessionRepository;
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,17 +41,17 @@ public class LoginController extends HttpServlet {
   }
 
   private void authorize(String email, String password, HttpServletResponse response) throws IOException, ServletException {
-    User user = userRepository.findByEmail(email);
-    if (user != null) {
-      if (user.getPassword().equals(password)) {
-        Cookie cookie = new Cookie("sessionId", email);
+    boolean authorize=userRepository.authorize(email,password);
+    if (authorize) {
+        String uuid = UUID.randomUUID().toString();
+        Session session = new Session(email,uuid);
+        sessionRepository.createSession(session);
+        Cookie cookie = new Cookie("sessionId", uuid);
+        cookie.setMaxAge(300);
         response.addCookie(cookie);
-        response.sendRedirect("/welcomehomepage");
-      } else {
-        response.sendRedirect("/login?errorMsg=<h2 style='color:red'>Wrong password!</h2");
-      }
+        response.sendRedirect("/useraccount");
     } else {
-      response.sendRedirect("/login?errorMsg=<h2 style='color:red'>No such username!</h2");
+      response.sendRedirect("/login?errorMsg=<h2 style='color:red'>Wrong username or password!</h2");
     }
   }
 }

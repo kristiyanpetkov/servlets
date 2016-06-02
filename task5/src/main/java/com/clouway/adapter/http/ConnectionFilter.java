@@ -1,4 +1,4 @@
-package com.clouway.http;
+package com.clouway.adapter.http;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
@@ -9,7 +9,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;

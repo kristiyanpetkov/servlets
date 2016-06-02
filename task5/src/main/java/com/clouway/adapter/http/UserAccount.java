@@ -1,4 +1,4 @@
-package com.clouway.http;
+package com.clouway.adapter.http;
 
 import com.clouway.core.OnlineUsers;
 
@@ -17,25 +17,9 @@ import java.io.PrintWriter;
 @WebServlet(name = "UserAccount")
 public class UserAccount extends HttpServlet {
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    logout(request, response);
-  }
-
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     printPage(out);
-  }
-
-  private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Cookie[] cookies = request.getCookies();
-    for (int i = 0; i < cookies.length; i++) {
-      if (cookies[i].getName().equals("sessionId")) {
-        cookies[i].setMaxAge(0);
-        OnlineUsers.userLogout(cookies[i].getValue());
-        response.addCookie(cookies[i]);
-        response.sendRedirect("/login");
-      }
-    }
   }
 
   public void printPage(PrintWriter out) {
@@ -44,7 +28,7 @@ public class UserAccount extends HttpServlet {
     out.println("<head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
     out.println("<title>LoginPage Form</title></head><body>");
     out.println("<h1> Welcome to our bank! </h1>");
-    out.print("<form action=\"/welcomehomepage\" method=\"post\">");
+    out.print("<form action=\"/logoutcontroller\" method=\"post\">");
     out.print("<input type=\"submit\" value=\"Logout\">");
     out.println("</body></html>");
     out.flush();

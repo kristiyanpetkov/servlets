@@ -1,4 +1,4 @@
-package com.clouway.http;
+package com.clouway.adapter.http;
 
 import com.clouway.core.User;
 import com.clouway.core.UserRepository;

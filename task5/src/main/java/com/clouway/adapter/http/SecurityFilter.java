@@ -1,5 +1,7 @@
-package com.clouway.http;
+package com.clouway.adapter.http;
 
+import com.clouway.core.Session;
+import com.clouway.core.SessionRepository;
 import com.clouway.core.User;
 import com.clouway.core.UserRepository;
 
@@ -14,10 +16,10 @@ import java.io.IOException;
  */
 public class SecurityFilter implements Filter {
 
-  private UserRepository userRepository;
+  private SessionRepository sessionRepository;
 
-  public SecurityFilter(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  public SecurityFilter(SessionRepository sessionRepository) {
+    this.sessionRepository = sessionRepository;
   }
 
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -29,14 +31,14 @@ public class SecurityFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     Cookie[] cookies = request.getCookies();
-    String email = "";
+    String sessionID = "";
     for (int i = 0; i < cookies.length; i++) {
       if (cookies[i].getName().equals("sessionId")) {
-        email = cookies[i].getValue();
+        sessionID = cookies[i].getValue();
       }
     }
-    User user = userRepository.findByEmail(email);
-    if (user != null) {
+    Session session = sessionRepository.getSession(sessionID);
+    if (session != null) {
       filterChain.doFilter(request, response);
     } else {
       response.sendRedirect("/login");

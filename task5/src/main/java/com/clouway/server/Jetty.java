@@ -1,7 +1,7 @@
 package com.clouway.server;
 
 
-import com.clouway.http.HttpServletContextListener;
+import com.clouway.adapter.http.HttpServletContextListener;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 

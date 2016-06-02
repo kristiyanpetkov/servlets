@@ -1,4 +1,4 @@
-package com.clouway.persistence;
+package com.clouway.adapter.persistence;
 
 import com.clouway.core.User;
 import com.clouway.core.ConnectionProvider;
@@ -62,5 +62,32 @@ public class PersistentUserRepository implements UserRepository {
     }
     return user;
   }
+
+  public boolean authorize(String email, String password) {
+    Connection connection = connectionProvider.get();
+    boolean result = false;
+    PreparedStatement statement = null;
+    try {
+      statement = connection.prepareStatement("SELECT * FROM users WHERE email=? AND password=?");
+      statement.setString(1, email);
+      statement.setString(2, password);
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next()) {
+        result = true;
+      }
+      resultSet.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    return result;
+  }
+
+
 }
 

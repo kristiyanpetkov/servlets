@@ -1,7 +1,4 @@
-package com.clouway.http;
-
-import com.clouway.core.User;
-import com.clouway.core.UserRepository;
+package com.clouway.adapter.http;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

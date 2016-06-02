@@ -8,4 +8,6 @@ public interface UserRepository {
   void register(User user);
 
   User findByEmail(String email);
+
+  boolean authorize(String email, String password);
 }
