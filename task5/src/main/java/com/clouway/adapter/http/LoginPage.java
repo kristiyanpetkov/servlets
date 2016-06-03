@@ -36,7 +36,6 @@ public class LoginPage extends HttpServlet {
     out.println("<input type=\"submit\" value=\"login\">");
     out.println("</form>");
     out.print("<a href=\"/register\">Register</a>");
-    out.println("</form>");
     out.println(errMsg);
     out.println("</body></html>");
     out.flush();

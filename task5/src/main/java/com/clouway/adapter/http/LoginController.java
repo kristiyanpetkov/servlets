@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
 
   public LoginController(UserRepository userRepository, SessionRepository sessionRepository) {
     this.userRepository = userRepository;
-    this.sessionRepository=sessionRepository;
+    this.sessionRepository = sessionRepository;
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,22 +34,22 @@ public class LoginController extends HttpServlet {
     String password = request.getParameter("password");
 
     if (userValidator.isValid(email, password)) {
-      authorize(email, password, response);
+      authenticate(email, password, response);
     } else {
       response.sendRedirect("/login?errorMsg=<h2 style='color:red'>Username or password invalid format!</h2>");
     }
   }
 
-  private void authorize(String email, String password, HttpServletResponse response) throws IOException, ServletException {
-    boolean authorize=userRepository.authorize(email,password);
-    if (authorize) {
-        String uuid = UUID.randomUUID().toString();
-        Session session = new Session(email,uuid);
-        sessionRepository.createSession(session);
-        Cookie cookie = new Cookie("sessionId", uuid);
-        cookie.setMaxAge(300);
-        response.addCookie(cookie);
-        response.sendRedirect("/useraccount");
+  private void authenticate(String email, String password, HttpServletResponse response) throws IOException, ServletException {
+    boolean isAuthenticated = userRepository.authorize(email, password);
+    if (isAuthenticated) {
+      String uuid = UUID.randomUUID().toString();
+      Session session = new Session(email, uuid);
+      sessionRepository.createSession(session);
+      Cookie cookie = new Cookie("sessionId", uuid);
+      cookie.setMaxAge(300);
+      response.addCookie(cookie);
+      response.sendRedirect("/useraccount");
     } else {
       response.sendRedirect("/login?errorMsg=<h2 style='color:red'>Wrong username or password!</h2");
     }

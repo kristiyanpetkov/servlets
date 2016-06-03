@@ -18,11 +18,11 @@ public class HttpServletContextListener implements ServletContextListener {
     servletContext.addFilter("ConnectionFilter", new ConnectionFilter()).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
     servletContext.addFilter("SecurityFilter", new SecurityFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/useraccount");
     servletContext.addServlet("login", new LoginPage()).addMapping("/login");
+    servletContext.addServlet("register", new RegisterPage()).addMapping("/register");
+    servletContext.addServlet("useraccount", new UserAccount()).addMapping("/useraccount");
     servletContext.addServlet("logincontroller", new LoginController(new PersistentUserRepository(new PerRequestConnectionProvider()), new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/logincontroller");
     servletContext.addServlet("registercontroller", new RegisterController(new PersistentUserRepository(new PerRequestConnectionProvider()))).addMapping("/registercontroller");
-    servletContext.addServlet("register", new RegisterPage()).addMapping("/register");
-    servletContext.addServlet("logoutcontroller",new LogoutController(new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/logoutcontroller");
-    servletContext.addServlet("useraccount", new UserAccount()).addMapping("/useraccount");
+    servletContext.addServlet("logoutcontroller", new LogoutController(new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/logoutcontroller");
   }
 
   public void contextDestroyed(ServletContextEvent servletContextEvent) {

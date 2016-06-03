@@ -65,13 +65,13 @@ public class PersistentSessionRepository implements SessionRepository {
   public void deleteSession(String sessionID) {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
-    try{
-      statement=connection.prepareStatement("DELETE FROM session WHERE sessionID=?");
-      statement.setString(1,sessionID);
+    try {
+      statement = connection.prepareStatement("DELETE FROM session WHERE sessionID=?");
+      statement.setString(1, sessionID);
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
-    }finally {
+    } finally {
       try {
         statement.close();
       } catch (SQLException e) {

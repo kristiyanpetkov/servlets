@@ -18,7 +18,6 @@ import java.io.IOException;
 @WebServlet(name = "RegisterController")
 public class RegisterController extends HttpServlet {
   private UserRepository userRepository;
-  private RequestDispatcher rd;
 
   public RegisterController(UserRepository userRepository) {
     this.userRepository = userRepository;
@@ -26,7 +25,6 @@ public class RegisterController extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     UserValidator userValidator = new UserValidator();
-    rd = request.getRequestDispatcher("/register");
 
     String userName = request.getParameter("regname");
     String password = request.getParameter("regpassword");
