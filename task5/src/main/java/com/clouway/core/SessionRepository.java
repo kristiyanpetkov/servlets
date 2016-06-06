@@ -5,9 +5,11 @@ package com.clouway.core;
  */
 public interface SessionRepository {
 
-  void createSession(Session session);
+  void create(Session session);
 
-  Session getSession(String sessionID);
+  Session get(String sessionID);
 
-  void deleteSession(String sessionID);
+  void delete(String sessionID);
+
+  void deleteAll();
 }

@@ -3,6 +3,7 @@ package com.clouway.adapter.http;
 import com.clouway.core.User;
 import com.clouway.core.UserRepository;
 import com.clouway.core.UserValidator;
+import com.clouway.core.Validator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,27 +19,27 @@ import java.io.IOException;
 @WebServlet(name = "RegisterController")
 public class RegisterController extends HttpServlet {
   private UserRepository userRepository;
+  private Validator userValidator;
 
-  public RegisterController(UserRepository userRepository) {
+  public RegisterController(UserRepository userRepository, Validator userValidator) {
     this.userRepository = userRepository;
+    this.userValidator = userValidator;
   }
 
-  protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    UserValidator userValidator = new UserValidator();
-
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String userName = request.getParameter("regname");
     String password = request.getParameter("regpassword");
     String email = request.getParameter("email");
 
     if (userValidator.isValid(userName, password, email)) {
       if (checkIfExist(email)) {
-        response.sendRedirect("/register?errorMsg=<h2 style='color:red'>Username with such an email already exist!</h2>");
+        response.sendRedirect("/register?errorMsg=Username with such an email already exist!");
       } else {
         userRepository.register(new User(userName, password, email));
-        response.sendRedirect("/login?errorMsg=<h2 style='color:green'>Registration successfull!</h2>");
+        response.sendRedirect("/login?errorMsg=Registration successfull!");
       }
     } else {
-      response.sendRedirect("/register?errorMsg=<h3style='color:red'>Input data is not in a valid format! Username and password should be between 6-16 characters and can contain only letters and digits.</h3>");
+      response.sendRedirect("/register?errorMsg=Input data is not in a valid format! Username and password should be between 6-16 characters and can contain only letters and digits.");
     }
   }
 

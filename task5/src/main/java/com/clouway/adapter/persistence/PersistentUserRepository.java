@@ -72,7 +72,7 @@ public class PersistentUserRepository implements UserRepository {
     return user;
   }
 
-  public boolean authorize(String email, String password) {
+  public boolean authenticate(String email, String password) {
     Connection connection = connectionProvider.get();
     boolean result = false;
     PreparedStatement statement = null;

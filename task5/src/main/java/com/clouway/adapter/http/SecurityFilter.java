@@ -1,9 +1,8 @@
 package com.clouway.adapter.http;
 
+import com.clouway.core.CookieFinder;
 import com.clouway.core.Session;
 import com.clouway.core.SessionRepository;
-import com.clouway.core.User;
-import com.clouway.core.UserRepository;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -17,9 +16,11 @@ import java.io.IOException;
 public class SecurityFilter implements Filter {
 
   private SessionRepository sessionRepository;
+  private CookieFinder cookieFinder;
 
-  public SecurityFilter(SessionRepository sessionRepository) {
+  public SecurityFilter(SessionRepository sessionRepository, CookieFinder cookieFinder) {
     this.sessionRepository = sessionRepository;
+    this.cookieFinder = cookieFinder;
   }
 
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -30,13 +31,10 @@ public class SecurityFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     HttpServletResponse response = (HttpServletResponse) servletResponse;
     Cookie[] cookies = request.getCookies();
-    String sessionID = "";
-    for (int i = 0; i < cookies.length; i++) {
-      if (cookies[i].getName().equals("sessionId")) {
-        sessionID = cookies[i].getValue();
-      }
-    }
-    Session session = sessionRepository.getSession(sessionID);
+    Cookie cookie = cookieFinder.find(cookies);
+    String sessionID = cookie.getValue();
+    Session session = sessionRepository.get(sessionID);
+
     if (session != null) {
       filterChain.doFilter(request, response);
     } else {

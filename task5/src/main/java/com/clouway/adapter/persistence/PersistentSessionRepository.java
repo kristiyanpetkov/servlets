@@ -19,7 +19,7 @@ public class PersistentSessionRepository implements SessionRepository {
     this.connectionProvider = connectionProvider;
   }
 
-  public void createSession(Session session) {
+  public void create(Session session) {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
     try {
@@ -38,7 +38,7 @@ public class PersistentSessionRepository implements SessionRepository {
     }
   }
 
-  public Session getSession(String sessionID) {
+  public Session get(String sessionID) {
     Session session = null;
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
@@ -62,7 +62,7 @@ public class PersistentSessionRepository implements SessionRepository {
     return session;
   }
 
-  public void deleteSession(String sessionID) {
+  public void delete(String sessionID) {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
     try {
@@ -72,6 +72,23 @@ public class PersistentSessionRepository implements SessionRepository {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void deleteAll(){
+    Connection connection = connectionProvider.get();
+    PreparedStatement statement = null;
+    try{
+      statement=connection.prepareStatement("DELETE FROM session");
+      statement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }finally {
       try {
         statement.close();
       } catch (SQLException e) {

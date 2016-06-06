@@ -17,11 +17,7 @@ public class RegisterPage extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    String errorMessage = "";
-
-    if (req.getParameter("errorMsg") != null) {
-      errorMessage = req.getParameter("errorMsg");
-    }
+    String errorMessage = req.getParameter("errorMsg");
     printPage(resp.getWriter(), errorMessage);
   }
 
@@ -35,7 +31,9 @@ public class RegisterPage extends HttpServlet {
     out.println("Password:<input type=\"password\" name=\"regpassword\"/><br/>");
     out.println("Email:<input type=\"text\" name=\"email\"/><br/>");
     out.print("<input type=\"submit\" value=\"submit\">");
-    out.println(errorMessage);
+    if(errorMessage!=null) {
+      out.println("<h3style='color:red'>"+errorMessage+"</h3>");
+    }
     out.println("</body></html>");
     out.close();
   }
