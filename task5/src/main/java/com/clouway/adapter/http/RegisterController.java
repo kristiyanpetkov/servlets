@@ -2,10 +2,8 @@ package com.clouway.adapter.http;
 
 import com.clouway.core.User;
 import com.clouway.core.UserRepository;
-import com.clouway.core.UserValidator;
 import com.clouway.core.Validator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

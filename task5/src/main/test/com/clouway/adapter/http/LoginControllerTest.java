@@ -39,7 +39,7 @@ public class LoginControllerTest {
   SessionRepository sessionRepo;
 
   @Mock
-  Validator userValidator;
+  Validator dataValidator;
 
   @Mock
   RandomGenerator randomGenerator;
@@ -47,7 +47,7 @@ public class LoginControllerTest {
 
   @Before
   public void setUp() {
-    loginController = new LoginController(userRepo, sessionRepo, userValidator, randomGenerator);
+    loginController = new LoginController(userRepo, sessionRepo, dataValidator, randomGenerator);
   }
 
   @Test
@@ -64,7 +64,7 @@ public class LoginControllerTest {
       oneOf(request).getParameter("password");
       will(returnValue(password));
 
-      oneOf(userValidator).isValid(email, password);
+      oneOf(dataValidator).isValid(email, password);
       will(returnValue(true));
 
       oneOf(userRepo).authenticate(email, password);
@@ -94,7 +94,7 @@ public class LoginControllerTest {
       oneOf(request).getParameter("password");
       will(returnValue(password));
 
-      oneOf(userValidator).isValid(email, password);
+      oneOf(dataValidator).isValid(email, password);
       will(returnValue(false));
 
       oneOf(response).sendRedirect("/login?errorMsg=Email or password invalid format!");
@@ -114,7 +114,7 @@ public class LoginControllerTest {
       oneOf(request).getParameter("password");
       will(returnValue(password));
 
-      oneOf(userValidator).isValid(email, password);
+      oneOf(dataValidator).isValid(email, password);
       will(returnValue(true));
 
       oneOf(userRepo).authenticate(email, password);

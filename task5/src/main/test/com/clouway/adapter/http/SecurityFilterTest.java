@@ -35,12 +35,6 @@ public class SecurityFilterTest {
   HttpServletResponse response;
 
   @Mock
-  ServletRequest req;
-
-  @Mock
-  ServletResponse resp;
-
-  @Mock
   CookieFinder cookieFinder;
 
   @Mock
@@ -71,7 +65,6 @@ public class SecurityFilterTest {
     }});
 
     securityFilter.doFilter(request, response, filterChain);
-
   }
 
   @Test
@@ -94,6 +87,5 @@ public class SecurityFilterTest {
     }});
 
     securityFilter.doFilter(request, response, filterChain);
-
   }
 }

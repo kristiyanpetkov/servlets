@@ -32,11 +32,11 @@ public class RegisterControllerTest {
   UserRepository userRepo;
 
   @Mock
-  Validator userValidator;
+  Validator dataValidator;
 
   @Before
   public void setUp() {
-    registerController = new RegisterController(userRepo, userValidator);
+    registerController = new RegisterController(userRepo, dataValidator);
   }
 
   @Test
@@ -54,7 +54,7 @@ public class RegisterControllerTest {
       oneOf(request).getParameter("email");
       will(returnValue(email));
 
-      oneOf(userValidator).isValid(username, password, email);
+      oneOf(dataValidator).isValid(username, password, email);
       will(returnValue(true));
 
       oneOf(userRepo).findByEmail(email);
@@ -83,7 +83,7 @@ public class RegisterControllerTest {
       oneOf(request).getParameter("email");
       will(returnValue(email));
 
-      oneOf(userValidator).isValid(username, password, email);
+      oneOf(dataValidator).isValid(username, password, email);
       will(returnValue(false));
 
       oneOf(response).sendRedirect("/register?errorMsg=Input data is not in a valid format! Username and password should be between 6-16 characters and can contain only letters and digits.");
@@ -107,7 +107,7 @@ public class RegisterControllerTest {
       oneOf(request).getParameter("email");
       will(returnValue(email));
 
-      oneOf(userValidator).isValid(username, password, email);
+      oneOf(dataValidator).isValid(username, password, email);
       will(returnValue(true));
 
       oneOf(userRepo).findByEmail(email);
