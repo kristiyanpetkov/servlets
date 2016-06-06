@@ -1,6 +1,5 @@
 package com.clouway.adapter.http;
 
-import com.clouway.core.OnlineUsers;
 import com.clouway.core.SessionRepository;
 
 import javax.servlet.ServletException;
