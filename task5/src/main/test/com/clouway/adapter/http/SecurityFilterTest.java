@@ -52,6 +52,8 @@ public class SecurityFilterTest {
     final Session session = new Session("krisko@abv.bg", "3131-3344-6667-8843");
 
     context.checking(new Expectations() {{
+      oneOf(sessionRepo).cleanExpired();
+
       oneOf(request).getCookies();
       will(returnValue(cookies));
 
@@ -60,6 +62,8 @@ public class SecurityFilterTest {
 
       oneOf(sessionRepo).get(cookie.getValue());
       will(returnValue(session));
+
+      oneOf(sessionRepo).resetSessionTime(session);
 
       oneOf(filterChain).doFilter(request, response);
     }});
@@ -72,8 +76,9 @@ public class SecurityFilterTest {
     final Cookie[] cookies = new Cookie[]{};
     final Cookie cookie = new Cookie("sessionId", "3131-3344-6667-8843");
 
-
     context.checking(new Expectations() {{
+      oneOf(sessionRepo).cleanExpired();
+
       oneOf(request).getCookies();
       will(returnValue(cookies));
 
