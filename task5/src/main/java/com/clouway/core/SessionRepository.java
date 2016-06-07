@@ -12,4 +12,10 @@ public interface SessionRepository {
   void delete(String sessionID);
 
   void deleteAll();
+
+  void cleanExpired();
+
+  int getOnlineUsersNumber();
+
+  void resetSessionTime(Session session);
 }

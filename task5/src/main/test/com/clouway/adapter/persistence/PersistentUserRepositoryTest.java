@@ -14,11 +14,11 @@ import static org.hamcrest.core.IsEqual.equalTo;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 03.06.16.
  */
 public class PersistentUserRepositoryTest {
-  private ConnectionProvider connectionProvider=new FakeJdbcConnectionProvider();
-  private PersistentUserRepository userRepository= new PersistentUserRepository(connectionProvider);
+  private ConnectionProvider connectionProvider = new FakeJdbcConnectionProvider();
+  private PersistentUserRepository userRepository = new PersistentUserRepository(connectionProvider);
 
   @Before
-  public void cleanUp(){
+  public void cleanUp() {
     userRepository.deleteAll();
   }
 
@@ -35,23 +35,19 @@ public class PersistentUserRepositoryTest {
   }
 
   @Test
-  public void authenticate() throws  Exception{
+  public void authenticate() throws Exception {
     String email = "admin@abv.bg";
     String password = "adminadmin";
     String username = "GlobalAdmin";
 
-    userRepository.register(new User(username,password,email));
+    userRepository.register(new User(username, password, email));
 
-    boolean isAuthenticated = userRepository.authenticate(email,password);
+    boolean isAuthenticated = userRepository.authenticate(email, password);
 
     boolean expected = true;
 
-    assertThat(expected,is(equalTo(isAuthenticated)));
+    assertThat(expected, is(equalTo(isAuthenticated)));
   }
-
-
-
-
 
 
 }

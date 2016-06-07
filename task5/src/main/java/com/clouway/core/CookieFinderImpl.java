@@ -8,10 +8,10 @@ import javax.servlet.http.Cookie;
 public class CookieFinderImpl implements CookieFinder {
 
   public Cookie find(Cookie[] cookies) {
-    Cookie cookie=null;
+    Cookie cookie = null;
     for (int i = 0; i < cookies.length; i++) {
       if (cookies[i].getName().equals("sessionId")) {
-        cookie =cookies[i];
+        cookie = cookies[i];
       }
     }
     return cookie;

@@ -107,7 +107,7 @@ public class PersistentUserRepository implements UserRepository {
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();
-    }finally {
+    } finally {
       try {
         if (statement != null) {
           statement.close();

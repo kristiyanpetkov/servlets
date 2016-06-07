@@ -30,17 +30,26 @@ public class SecurityFilter implements Filter {
 
     HttpServletRequest request = (HttpServletRequest) servletRequest;
     HttpServletResponse response = (HttpServletResponse) servletResponse;
+    sessionRepository.cleanExpired();
     Cookie[] cookies = request.getCookies();
     Cookie cookie = cookieFinder.find(cookies);
+
+    if(cookie==null){
+      response.sendRedirect("/login");
+      return;
+    }
     String sessionID = cookie.getValue();
     Session session = sessionRepository.get(sessionID);
 
     if (session != null) {
+      sessionRepository.resetSessionTime(session);
       filterChain.doFilter(request, response);
-    } else {
-      response.sendRedirect("/login");
+      return;
     }
+
+    response.sendRedirect("/login");
   }
+
 
   public void destroy() {
   }

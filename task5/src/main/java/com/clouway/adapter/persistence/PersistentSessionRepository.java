@@ -23,9 +23,10 @@ public class PersistentSessionRepository implements SessionRepository {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
     try {
-      statement = connection.prepareStatement("INSERT INTO session (email,sessionID) VALUES (?,?)");
+      statement = connection.prepareStatement("INSERT INTO session (email,sessionID,expirationTime) VALUES (?,?,?)");
       statement.setString(1, session.email);
       statement.setString(2, session.sessionId);
+      statement.setLong(3, System.currentTimeMillis() + 5 * 60 * 1000);
       statement.execute();
     } catch (SQLException sqlExc) {
       sqlExc.printStackTrace();
@@ -80,11 +81,64 @@ public class PersistentSessionRepository implements SessionRepository {
     }
   }
 
-  public void deleteAll(){
+  public void deleteAll() {
+    Connection connection = connectionProvider.get();
+    PreparedStatement statement = null;
+    try {
+      statement = connection.prepareStatement("DELETE FROM session");
+      statement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public void cleanExpired() {
+    Connection connection = connectionProvider.get();
+    PreparedStatement statement = null;
+    try {
+      statement = connection.prepareStatement("DELETE FROM session WHERE expirationTime < " + System.currentTimeMillis());
+      statement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public int getOnlineUsersNumber() {
+    Connection connection = connectionProvider.get();
+    ResultSet resultSet = null;
+    PreparedStatement statement;
+    Integer counter = null;
+    try{
+      statement = connection.prepareStatement("SELECT COUNT(*) FROM session");
+      resultSet = statement.executeQuery();
+      while (resultSet.next()){
+        counter=resultSet.getInt(1);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return counter;
+  }
+
+  public void resetSessionTime(Session session){
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
     try{
-      statement=connection.prepareStatement("DELETE FROM session");
+      statement=connection.prepareStatement("UPDATE session SET expirationTime="+System.currentTimeMillis()+5*60*1000+" WHERE email=? AND sessionID=?");
+      statement.setString(1,session.email);
+      statement.setString(2,session.sessionId);
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();

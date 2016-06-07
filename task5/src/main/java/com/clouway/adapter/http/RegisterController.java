@@ -25,8 +25,8 @@ public class RegisterController extends HttpServlet {
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    String userName = request.getParameter("regname");
-    String password = request.getParameter("regpassword");
+    String userName = request.getParameter("username");
+    String password = request.getParameter("password");
     String email = request.getParameter("email");
 
     if (userValidator.isValid(userName, password, email)) {

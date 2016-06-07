@@ -27,12 +27,12 @@ public class RegisterPage extends HttpServlet {
     out.println("<head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
     out.println("<title>Registration Form</title></head><body>");
     out.println("<form action=\"/registercontroller\" method=\"post\">");
-    out.println("Username:<input type=\"text\" name=\"regname\"/><br/>");
-    out.println("Password:<input type=\"password\" name=\"regpassword\"/><br/>");
+    out.println("Username:<input type=\"text\" name=\"username\"/><br/>");
+    out.println("Password:<input type=\"password\" name=\"password\"/><br/>");
     out.println("Email:<input type=\"text\" name=\"email\"/><br/>");
     out.print("<input type=\"submit\" value=\"submit\">");
-    if(errorMessage!=null) {
-      out.println("<h3style='color:red'>"+errorMessage+"</h3>");
+    if (errorMessage != null) {
+      out.println("<h3style='color:red'>" + errorMessage + "</h3>");
     }
     out.println("</body></html>");
     out.close();

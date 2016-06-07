@@ -52,9 +52,8 @@ public class LoginControllerTest {
 
   @Test
   public void happyPath() throws Exception {
-    final User user = new User("Kristiyan", "123456", "kristiyan@gmail.com");
-    final String email = user.getEmail();
-    final String password = user.getPassword();
+    final String email = "kristiyan@gmail.com";
+    final String password = "123456";
     final String uuid = "1451421-512411-51421-45124151";
     final Session session = new Session(email, uuid);
 
@@ -84,9 +83,8 @@ public class LoginControllerTest {
 
   @Test
   public void loginParametersNotValid() throws Exception {
-    final User user = new User("John1991", "223344", "John.abv.bg");
-    final String email = user.getEmail();
-    final String password = user.getPassword();
+    final String email = "John.abv.bg";
+    final String password = "223344";
 
     context.checking(new Expectations() {{
       oneOf(request).getParameter("email");
@@ -104,11 +102,10 @@ public class LoginControllerTest {
 
   @Test
   public void userNotAuthenticated() throws Exception {
-    final User user = new User("John1991", "223344", "John@abv.bg");
-    final String email = user.getEmail();
-    final String password = user.getPassword();
+    final String email = "John@abv.bg";
+    final String password = "223344";
 
-    context.checking(new Expectations(){{
+    context.checking(new Expectations() {{
       oneOf(request).getParameter("email");
       will(returnValue(email));
       oneOf(request).getParameter("password");
@@ -122,6 +119,6 @@ public class LoginControllerTest {
 
       oneOf(response).sendRedirect("/login?errorMsg=Wrong email or password!");
     }});
-    loginController.doPost(request,response);
+    loginController.doPost(request, response);
   }
 }

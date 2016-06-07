@@ -57,4 +57,21 @@ public class LogoutControllerTest {
     }});
     logoutController.doPost(request, response);
   }
+
+  @Test
+  public void cookieNotFound() throws Exception {
+    final Cookie[] cookies = new Cookie[]{};
+
+    context.checking(new Expectations() {{
+      oneOf(request).getCookies();
+      will(returnValue(cookies));
+
+      oneOf(cookieFinder).find(cookies);
+      will(returnValue(null));
+
+      oneOf(response).sendRedirect("/login");
+    }});
+    logoutController.doPost(request, response);
+
+  }
 }

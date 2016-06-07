@@ -41,15 +41,15 @@ public class RegisterControllerTest {
 
   @Test
   public void happyPath() throws Exception {
-    final User user = new User("GlobalAdmin", "admin123456", "admin@clouwaybank.com");
-    final String email = user.getEmail();
-    final String password = user.getPassword();
-    final String username = user.getUsername();
+    final String email = "admin@clouwaybank.com";
+    final String password = "admin123456";
+    final String username = "GlobalAdmin";
+    final User user = new User(username, password, email);
 
     context.checking(new Expectations() {{
-      oneOf(request).getParameter("regname");
+      oneOf(request).getParameter("username");
       will(returnValue(username));
-      oneOf(request).getParameter("regpassword");
+      oneOf(request).getParameter("password");
       will(returnValue(password));
       oneOf(request).getParameter("email");
       will(returnValue(email));
@@ -70,15 +70,14 @@ public class RegisterControllerTest {
 
   @Test
   public void insertInvalidData() throws Exception {
-    final User user = new User("Admin", "admin123456", "admin;';'clouwaybank.com");
-    final String email = user.getEmail();
-    final String password = user.getPassword();
-    final String username = user.getUsername();
+    final String email = "adminclouwaybank.com";
+    final String password = "admin123456";
+    final String username = "GlobalAdmin";
 
     context.checking(new Expectations() {{
-      oneOf(request).getParameter("regname");
+      oneOf(request).getParameter("username");
       will(returnValue(username));
-      oneOf(request).getParameter("regpassword");
+      oneOf(request).getParameter("password");
       will(returnValue(password));
       oneOf(request).getParameter("email");
       will(returnValue(email));
@@ -94,15 +93,15 @@ public class RegisterControllerTest {
 
   @Test
   public void registerAlreadyExistingUser() throws Exception {
-    final User user = new User("GlobalAdmin", "admin123456", "admin@clouwaybank.com");
-    final String email = user.getEmail();
-    final String password = user.getPassword();
-    final String username = user.getUsername();
+    final String email = "admin@clouwaybank.com";
+    final String password = "admin123456";
+    final String username = "GlobalAdmin";
+    final User user = new User(username, password, email);
 
     context.checking(new Expectations() {{
-      oneOf(request).getParameter("regname");
+      oneOf(request).getParameter("username");
       will(returnValue(username));
-      oneOf(request).getParameter("regpassword");
+      oneOf(request).getParameter("password");
       will(returnValue(password));
       oneOf(request).getParameter("email");
       will(returnValue(email));
