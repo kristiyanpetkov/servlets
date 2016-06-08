@@ -150,4 +150,21 @@ public class PersistentSessionRepository implements SessionRepository {
     }
     return counter;
   }
+
+  public String getCurrentUserEmail(String sessionId) {
+    Connection connection = connectionProvider.get();
+    PreparedStatement statement = null;
+    String email = null;
+    try {
+      statement = connection.prepareStatement("SELECT email FROM session WHERE sessionID=?");
+      statement.setString(1, sessionId);
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        email = resultSet.getString("email");
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return email;
+  }
 }
