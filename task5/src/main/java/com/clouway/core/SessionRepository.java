@@ -15,7 +15,6 @@ public interface SessionRepository {
 
   void cleanExpired();
 
-  int getOnlineUsersNumber();
+  void refreshSessionTime(Session session);
 
-  void resetSessionTime(Session session);
 }

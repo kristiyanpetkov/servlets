@@ -29,24 +29,24 @@ public class RegisterController extends HttpServlet {
     String password = request.getParameter("password");
     String email = request.getParameter("email");
 
-    if (userValidator.isValid(userName, password, email)) {
-      if (checkIfExist(email)) {
-        response.sendRedirect("/register?errorMsg=Username with such an email already exist!");
-      } else {
-        userRepository.register(new User(userName, password, email));
-        response.sendRedirect("/login?errorMsg=Registration successfull!");
-      }
-    } else {
+    boolean valid = userValidator.isValid(userName, password, email);
+    if (!valid) {
       response.sendRedirect("/register?errorMsg=Input data is not in a valid format! Username and password should be between 6-16 characters and can contain only letters and digits.");
+      return;
     }
+
+    if (checkIfExist(email)) {
+      response.sendRedirect("/register?errorMsg=Username with such an email already exist!");
+      return;
+    }
+
+    userRepository.register(new User(userName, password, email));
+    response.sendRedirect("/login?errorMsg=Registration successfull!");
+
   }
 
   private boolean checkIfExist(String email) {
     User user = userRepository.findByEmail(email);
-    if (user != null) {
-      return true;
-    } else {
-      return false;
-    }
+    return user != null;
   }
 }

@@ -11,8 +11,6 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +61,7 @@ public class SecurityFilterTest {
       oneOf(sessionRepo).get(cookie.getValue());
       will(returnValue(session));
 
-      oneOf(sessionRepo).resetSessionTime(session);
+      oneOf(sessionRepo).refreshSessionTime(session);
 
       oneOf(filterChain).doFilter(request, response);
     }});

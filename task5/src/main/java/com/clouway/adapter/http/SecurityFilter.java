@@ -42,7 +42,7 @@ public class SecurityFilter implements Filter {
     Session session = sessionRepository.get(sessionID);
 
     if (session != null) {
-      sessionRepository.resetSessionTime(session);
+      sessionRepository.refreshSessionTime(session);
       filterChain.doFilter(request, response);
       return;
     }
