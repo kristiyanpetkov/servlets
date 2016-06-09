@@ -17,6 +17,6 @@ public interface SessionRepository {
 
   void refreshSessionTime(Session session);
 
-  int getActiveSessions();
+  Integer getActiveSessions();
 
 }

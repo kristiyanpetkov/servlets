@@ -134,7 +134,7 @@ public class PersistentSessionRepository implements SessionRepository {
     }
   }
 
-  public int getActiveSessions() {
+  public Integer getActiveSessions() {
     Connection connection = connectionProvider.get();
     ResultSet resultSet = null;
     PreparedStatement statement;
