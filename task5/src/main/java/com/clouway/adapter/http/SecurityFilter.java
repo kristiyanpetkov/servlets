@@ -46,7 +46,6 @@ public class SecurityFilter implements Filter {
       filterChain.doFilter(request, response);
       return;
     }
-
     response.sendRedirect("/login");
   }
 

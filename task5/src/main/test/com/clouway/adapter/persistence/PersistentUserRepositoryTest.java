@@ -48,8 +48,6 @@ public class PersistentUserRepositoryTest {
 
     assertThat(expected, is(equalTo(isAuthenticated)));
   }
-
-
 }
 
 

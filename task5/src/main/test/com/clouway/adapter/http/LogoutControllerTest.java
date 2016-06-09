@@ -72,6 +72,5 @@ public class LogoutControllerTest {
       oneOf(response).sendRedirect("/login");
     }});
     logoutController.doPost(request, response);
-
   }
 }
