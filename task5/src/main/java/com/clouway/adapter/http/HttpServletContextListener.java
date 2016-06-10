@@ -1,5 +1,6 @@
 package com.clouway.adapter.http;
 
+import com.clouway.adapter.persistence.PersistentFundsRepository;
 import com.clouway.adapter.persistence.PersistentSessionRepository;
 import com.clouway.adapter.persistence.PersistentUserRepository;
 import com.clouway.core.CookieFinderImpl;
@@ -20,9 +21,7 @@ public class HttpServletContextListener implements ServletContextListener {
     ServletContext servletContext = servletContextEvent.getServletContext();
     servletContext.addFilter("ConnectionFilter", new ConnectionFilter()).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
     servletContext.addFilter("SecurityFilter", new SecurityFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()), new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/useraccount");
-    servletContext.addServlet("login", new LoginPage()).addMapping("/login");
-    servletContext.addServlet("bankoperationhandler",new BankOperationHandler(new PersistentUserRepository(new PerRequestConnectionProvider()),new DataValidator())).addMapping("/bankoperationhandler");
-    servletContext.addFilter("LoginFilter", new LoginFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()),new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/login");
+    servletContext.addFilter("LoginFilter", new LoginFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()), new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/login");
     servletContext.addServlet("login", new LoginPage(new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/login");
     servletContext.addServlet("bankoperationhandler", new BankOperationHandler(new PersistentFundsRepository(new PerRequestConnectionProvider()), new DataValidator(), new CookieFinderImpl(), new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/bankoperationhandler");
     servletContext.addServlet("register", new RegisterPage()).addMapping("/register");
