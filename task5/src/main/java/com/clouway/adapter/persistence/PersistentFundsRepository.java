@@ -7,6 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 09.06.16.
@@ -88,5 +91,26 @@ public class PersistentFundsRepository implements FundsRepository {
       }
     }
     return succesfull;
+  }
+
+  public void updateHistory(String date, String email, String operation, Double amount) {
+    Connection connection = connectionProvider.get();
+    PreparedStatement statement = null;
+    try {
+      statement=connection.prepareStatement("INSERT INTO transactions (date, email, operation, amount) VALUES (?,?,?,?)");
+      statement.setString(1,date);
+      statement.setString(2,email);
+      statement.setString(3,operation);
+      statement.setDouble(4,amount);
+      statement.execute();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }finally {
+      try {
+        statement.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }
