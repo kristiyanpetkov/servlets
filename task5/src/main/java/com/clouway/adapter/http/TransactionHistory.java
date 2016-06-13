@@ -2,6 +2,7 @@ package com.clouway.adapter.http;
 
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
+import com.clouway.core.Session;
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -22,8 +24,8 @@ import java.sql.SQLException;
  */
 @WebServlet(name = "TransactionHistory")
 public class TransactionHistory extends HttpServlet {
-  private Integer offset = 0;
   private FundsRepository fundsRepository;
+  private Integer offset;
 
   public TransactionHistory(FundsRepository fundsRepository) {
     this.fundsRepository = fundsRepository;
@@ -31,6 +33,13 @@ public class TransactionHistory extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession();
+
+    if (session.getAttribute("offset") == null) {
+      session.setAttribute("offset", 0);
+    }
+
+    offset = (Integer) session.getAttribute("offset");
     PrintWriter out = response.getWriter();
     Integer numberOfRows = fundsRepository.getNumberOfID();
     String paginationDirection = request.getParameter("pagination");
@@ -41,25 +50,25 @@ public class TransactionHistory extends HttpServlet {
     }
 
     if (paginationDirection.equals("next") && numberOfRows - offset > 20) {
-      offset += 20;
+      session.setAttribute("offset", offset += 20);
       printPage(out);
       return;
     }
 
     if (paginationDirection.equals("previous") && offset != 0) {
-      offset -= 20;
+      session.setAttribute("offset", offset -= 20);
       printPage(out);
       return;
     }
 
     if (paginationDirection.equals("previous") && offset == 0) {
-      offset = 0;
+      session.setAttribute("offset", 0);
       printPage(out);
+      return;
     }
 
     printPage(out);
   }
-
 
   private void printPage(PrintWriter out) {
     Integer limit = 20;
