@@ -1,11 +1,7 @@
 package com.clouway.adapter.http;
 
-import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
 import com.clouway.core.Pager;
-import com.clouway.core.Session;
-import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 
 /**
