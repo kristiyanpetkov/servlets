@@ -1,6 +1,7 @@
 package com.clouway.core;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 09.06.16.
@@ -15,7 +16,7 @@ public interface FundsRepository {
 
   void updateHistory(String date, String email, String operation, Double amount);
 
-  void getHistory(PrintWriter out, Integer limit, Integer offset);
+  List<Pager> getHistory(Integer limit, Integer offset);
 
   Integer getNumberOfID();
 }

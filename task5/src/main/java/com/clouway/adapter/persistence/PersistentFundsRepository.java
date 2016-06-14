@@ -2,7 +2,9 @@ package com.clouway.adapter.persistence;
 
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
+import com.clouway.core.Pager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +13,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 09.06.16.
@@ -116,33 +120,16 @@ public class PersistentFundsRepository implements FundsRepository {
     }
   }
 
-  public void getHistory(PrintWriter out, Integer limit, Integer offset) {
-
+  public List<Pager> getHistory(Integer limit, Integer offset) {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
+    List<Pager> pagers = new ArrayList<Pager>();
     try {
       statement = connection.prepareStatement("SELECT * FROM transactions LIMIT " + limit + " OFFSET " + offset + "");
       ResultSet resultSet = statement.executeQuery();
-      out.print("<table width=25% border=1>");
-      out.print("<center><h1>Transaction History:</h1></center>");
-      ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-      out.print("<tr>");
-      out.print("<th>" + resultSetMetaData.getColumnName(1) + "</th>");
-      out.print("<th>" + resultSetMetaData.getColumnName(2) + "</th>");
-      out.print("<th>" + resultSetMetaData.getColumnName(3) + "</th>");
-      out.print("<th>" + resultSetMetaData.getColumnName(4) + "</th>");
-      out.print("<th>" + resultSetMetaData.getColumnName(5) + "</th>");
-      out.print("</tr>");
       while (resultSet.next()) {
-        out.print("<tr>");
-        out.print("<td>" + resultSet.getInt(1) + "</td>");
-        out.print("<td>" + resultSet.getString(2) + "</td>");
-        out.print("<td>" + resultSet.getString(3) + "</td>");
-        out.print("<td>" + resultSet.getString(4) + "</td>");
-        out.print("<td>" + resultSet.getDouble(5) + "</td>");
-        out.print("</tr>");
+        pagers.add(new Pager(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDouble(5)));
       }
-      out.print("</table>");
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -152,6 +139,7 @@ public class PersistentFundsRepository implements FundsRepository {
         e.printStackTrace();
       }
     }
+    return pagers;
   }
 
   public Integer getNumberOfID() {

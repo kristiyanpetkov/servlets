@@ -2,6 +2,7 @@ package com.clouway.adapter.http;
 
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
+import com.clouway.core.Pager;
 import com.clouway.core.Session;
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
@@ -18,6 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 13.06.16.
@@ -72,7 +75,26 @@ public class TransactionHistory extends HttpServlet {
 
   private void printPage(PrintWriter out) {
     Integer limit = 20;
-    fundsRepository.getHistory(out, limit, offset);
+    List<Pager> pagers = fundsRepository.getHistory(limit, offset);
+    out.print("<table width=25% border=1>");
+    out.print("<center><h1>Transaction History:</h1></center>");
+    out.print("<tr>");
+    out.print("<th> ID </th>");
+    out.print("<th> Date </th>");
+    out.print("<th> E-mail </th>");
+    out.print("<th> Operation </th>");
+    out.print("<th> Amount</th>");
+    out.print("</tr>");
+    for (Pager pager : pagers) {
+      out.print("<tr>");
+      out.print("<td>" + pager.ID + "</td>");
+      out.print("<td>" + pager.date + "</td>");
+      out.print("<td>" + pager.email + "</td>");
+      out.print("<td>" + pager.operation + "</td>");
+      out.print("<td>" + pager.amount + "</td>");
+      out.print("</tr>");
+    }
+    out.print("</table>");
     out.println("<form action=\"/history\" method=\"get\">");
     out.print("<input type=\"submit\" name=\"pagination\" value=\"previous\">");
     out.print("<input type=\"submit\" name=\"pagination\" value=\"next\">");
