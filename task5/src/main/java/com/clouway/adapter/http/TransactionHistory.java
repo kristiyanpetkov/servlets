@@ -29,16 +29,17 @@ public class TransactionHistory extends HttpServlet {
 
     PrintWriter out = response.getWriter();
     boolean hasNext = false;
-    String offsetParam = request.getParameter("offset");
+    String pageParam = request.getParameter("page");
     Integer offset;
+    List<Transaction> transactions;
 
-    if (offsetParam == null) {
+    if (pageParam == null) {
       offset = 0;
+      transactions = fundsRepository.getHistory(PAGE_SIZE + 1, offset);
     } else {
-      offset = Integer.valueOf(request.getParameter("offset"));
+      offset = Integer.valueOf(request.getParameter("page"));
+      transactions = fundsRepository.getHistory(PAGE_SIZE + 1, offset * PAGE_SIZE);
     }
-
-    List<Transaction> transactions = fundsRepository.getHistory(PAGE_SIZE + 1, offset);
 
     if (PAGE_SIZE < transactions.size()) {
       hasNext = true;
@@ -67,13 +68,13 @@ public class TransactionHistory extends HttpServlet {
     out.println("<form action=\"/history\" method=\"get\">");
 
     if (offset > 0) {
-      int i = offset - PAGE_SIZE;
-      out.println("<a style=\"text-align:left\" href=\"/history?offset=" + i + "\">previous</a>");
+      Integer i = offset - 1;
+      out.println("<a style=\"text-align:left\" href=\"/history?page=" + i + "\">previous</a>");
     }
 
     if (hasNext) {
-      int i = offset + PAGE_SIZE;
-      out.println("<a style=\"margin:330px;\" href=\"/history?offset=" + i + "\">next</a>");
+      Integer i = offset + 1;
+      out.println("<a style=\"margin:330px;\" href=\"/history?page=" + i + "\">next</a>");
     }
 
     out.println("</form>");

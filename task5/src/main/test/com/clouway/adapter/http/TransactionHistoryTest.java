@@ -41,7 +41,7 @@ public class TransactionHistoryTest {
       oneOf(response).getWriter();
       will(returnValue(new PrintWriter(out)));
 
-      oneOf(request).getParameter("offset");
+      oneOf(request).getParameter("page");
       will(returnValue(null));
 
       oneOf(fundsRepository).getHistory(21, 0);
@@ -57,7 +57,7 @@ public class TransactionHistoryTest {
       oneOf(response).getWriter();
       will(returnValue(new PrintWriter(out)));
 
-      oneOf(request).getParameter("offset");
+      oneOf(request).getParameter("page");
       will(returnValue(null));
 
       oneOf(fundsRepository).getHistory(21, 0);
@@ -65,11 +65,11 @@ public class TransactionHistoryTest {
       oneOf(response).getWriter();
       will(returnValue(new PrintWriter(out)));
 
-      oneOf(request).getParameter("offset");
-      will(returnValue("20"));
+      oneOf(request).getParameter("page");
+      will(returnValue("1"));
 
-      oneOf(request).getParameter("offset");
-      will(returnValue("20"));
+      oneOf(request).getParameter("page");
+      will(returnValue("1"));
 
       oneOf(fundsRepository).getHistory(21, 20);
     }});
