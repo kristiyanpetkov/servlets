@@ -42,7 +42,7 @@ public class TransactionHistoryTest {
       will(returnValue(new PrintWriter(out)));
 
       oneOf(request).getParameter("page");
-      will(returnValue(null));
+      will(returnValue("1"));
 
       oneOf(fundsRepository).getHistory(21, 0);
     }});
@@ -58,7 +58,7 @@ public class TransactionHistoryTest {
       will(returnValue(new PrintWriter(out)));
 
       oneOf(request).getParameter("page");
-      will(returnValue(null));
+      will(returnValue("1"));
 
       oneOf(fundsRepository).getHistory(21, 0);
 
@@ -66,10 +66,7 @@ public class TransactionHistoryTest {
       will(returnValue(new PrintWriter(out)));
 
       oneOf(request).getParameter("page");
-      will(returnValue("1"));
-
-      oneOf(request).getParameter("page");
-      will(returnValue("1"));
+      will(returnValue("2"));
 
       oneOf(fundsRepository).getHistory(21, 20);
     }});

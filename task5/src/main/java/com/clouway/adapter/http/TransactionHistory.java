@@ -29,13 +29,10 @@ public class TransactionHistory extends HttpServlet {
 
     PrintWriter out = response.getWriter();
     boolean hasNext = false;
-    String pageParam = request.getParameter("page");
-    Integer currentPage;
+    Integer currentPage = Integer.valueOf(request.getParameter("page"));
     List<Transaction> transactions;
 
-    currentPage = Integer.valueOf(request.getParameter("page"));
-
-    if (pageParam.equals("1")) {
+    if (currentPage==1) {
       transactions = fundsRepository.getHistory(PAGE_SIZE + 1, 0);
     } else {
       transactions = fundsRepository.getHistory(PAGE_SIZE + 1, (currentPage - 1) * PAGE_SIZE);
