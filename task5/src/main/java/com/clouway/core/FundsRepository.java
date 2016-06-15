@@ -1,6 +1,5 @@
 package com.clouway.core;
 
-import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ public interface FundsRepository {
 
   void updateHistory(String date, String email, String operation, Double amount);
 
-  List<Pager> getHistory(Integer limit, Integer offset);
+  List<Transaction> getHistory(Integer limit, Integer offset);
 
   Integer getNumberOfID();
 }

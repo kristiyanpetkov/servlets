@@ -2,19 +2,13 @@ package com.clouway.adapter.persistence;
 
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
-import com.clouway.core.Pager;
+import com.clouway.core.Transaction;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -120,15 +114,15 @@ public class PersistentFundsRepository implements FundsRepository {
     }
   }
 
-  public List<Pager> getHistory(Integer limit, Integer offset) {
+  public List<Transaction> getHistory(Integer limit, Integer offset) {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
-    List<Pager> pagers = new ArrayList<Pager>();
+    List<Transaction> transactions = new ArrayList<Transaction>();
     try {
       statement = connection.prepareStatement("SELECT * FROM transactions LIMIT " + limit + " OFFSET " + offset + "");
       ResultSet resultSet = statement.executeQuery();
       while (resultSet.next()) {
-        pagers.add(new Pager(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDouble(5)));
+        transactions.add(new Transaction(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDouble(5)));
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -139,7 +133,7 @@ public class PersistentFundsRepository implements FundsRepository {
         e.printStackTrace();
       }
     }
-    return pagers;
+    return transactions;
   }
 
   public Integer getNumberOfID() {

@@ -13,6 +13,9 @@ import javax.servlet.http.HttpSession;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 13.06.16.
  */
@@ -22,9 +25,6 @@ public class TransactionHistoryTest {
 
   @Mock
   FundsRepository fundsRepository;
-
-  @Mock
-  HttpSession session;
 
   @Mock
   HttpServletRequest request;
@@ -38,27 +38,42 @@ public class TransactionHistoryTest {
     TransactionHistory transactionHistory = new TransactionHistory(fundsRepository);
 
     context.checking(new Expectations() {{
-      oneOf(request).getSession();
-      will(returnValue(session));
+      oneOf(response).getWriter();
+      will(returnValue(new PrintWriter(out)));
 
-      oneOf(session).getAttribute("offset");
+      oneOf(request).getParameter("offset");
       will(returnValue(null));
-      oneOf(session).setAttribute("offset", 0);
-      oneOf(session).getAttribute("offset");
-      will(returnValue(0));
+
+      oneOf(fundsRepository).getHistory(21, 0);
+    }});
+    transactionHistory.doGet(request, response);
+  }
+
+  @Test
+  public void secondPage() throws Exception {
+    final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    TransactionHistory transactionHistory = new TransactionHistory(fundsRepository);
+    context.checking(new Expectations() {{
+      oneOf(response).getWriter();
+      will(returnValue(new PrintWriter(out)));
+
+      oneOf(request).getParameter("offset");
+      will(returnValue(null));
+
+      oneOf(fundsRepository).getHistory(21, 0);
 
       oneOf(response).getWriter();
       will(returnValue(new PrintWriter(out)));
 
-      oneOf(fundsRepository).getNumberOfID();
-      will(returnValue(63));
+      oneOf(request).getParameter("offset");
+      will(returnValue("20"));
 
-      oneOf(request).getParameter("pagination");
-      will(returnValue(null));
+      oneOf(request).getParameter("offset");
+      will(returnValue("20"));
 
-      oneOf(fundsRepository).getHistory(20,0);
+      oneOf(fundsRepository).getHistory(21, 20);
     }});
-
+    transactionHistory.doGet(request, response);
     transactionHistory.doGet(request, response);
   }
 }
