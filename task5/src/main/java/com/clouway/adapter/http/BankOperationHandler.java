@@ -38,11 +38,6 @@ public class BankOperationHandler extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     Cookie[] cookies = request.getCookies();
     Cookie cookie = cookieFinder.find(cookies);
-    if (cookie == null) {
-      response.sendRedirect("/login?errorMsg=Session expired! Please log in again!");
-      return;
-    }
-
     String sessionId = cookie.getValue();
     String email = sessionRepository.getCurrentUserEmail(sessionId);
     String operation = request.getParameter("operation");
