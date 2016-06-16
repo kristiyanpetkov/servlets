@@ -20,8 +20,8 @@ public class HttpServletContextListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent servletContextEvent) {
     ServletContext servletContext = servletContextEvent.getServletContext();
     servletContext.addFilter("ConnectionFilter", new ConnectionFilter()).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
-    servletContext.addFilter("SecurityFilter", new SecurityFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()), new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/useraccount","/history");
-    servletContext.addFilter("LoginFilter", new LoginFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()), new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/login","/bankoperationhandler");
+    servletContext.addFilter("SecurityFilter", new SecurityFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()), new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/useraccount","/history","/bankoperationhandler");
+    servletContext.addFilter("LoginFilter", new LoginFilter(new PersistentSessionRepository(new PerRequestConnectionProvider()), new CookieFinderImpl())).addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/login");
     servletContext.addServlet("login", new LoginPage(new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/login");
     servletContext.addServlet("bankoperationhandler", new BankOperationHandler(new PersistentFundsRepository(new PerRequestConnectionProvider()), new DataValidator(), new CookieFinderImpl(), new PersistentSessionRepository(new PerRequestConnectionProvider()))).addMapping("/bankoperationhandler");
     servletContext.addServlet("register", new RegisterPage()).addMapping("/register");

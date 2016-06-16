@@ -1,5 +1,7 @@
 package com.clouway.core;
 
+import java.util.Date;
+
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 14.06.16.
  */

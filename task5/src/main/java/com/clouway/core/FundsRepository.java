@@ -13,7 +13,7 @@ public interface FundsRepository {
 
   double getBalance(String email);
 
-  void updateHistory(String date, String email, String operation, Double amount);
+  void updateHistory(Long date, String email, String operation, Double amount);
 
   List<Transaction> getHistory(Integer limit, Integer offset);
 

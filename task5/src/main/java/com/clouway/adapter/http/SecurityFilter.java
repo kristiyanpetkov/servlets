@@ -46,7 +46,7 @@ public class SecurityFilter implements Filter {
       filterChain.doFilter(request, response);
       return;
     }
-    response.sendRedirect("/login");
+    response.sendRedirect("/login?errorMsg=Session expired! Please log in again!");
   }
 
 

@@ -42,8 +42,6 @@ public class BankOperationHandler extends HttpServlet {
     String email = sessionRepository.getCurrentUserEmail(sessionId);
     String operation = request.getParameter("operation");
     String amount = request.getParameter("amount");
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date date;
 
     if (amount.equalsIgnoreCase("")) {
       response.sendRedirect("/useraccount?message=No amount entered!");
@@ -59,8 +57,7 @@ public class BankOperationHandler extends HttpServlet {
 
     if (operation.equalsIgnoreCase("Deposit")) {
       fundsRepository.deposit(amountAsDouble, email);
-      date = new Date();
-      fundsRepository.updateHistory(dateFormat.format(date), email, operation, amountAsDouble);
+      fundsRepository.updateHistory(System.currentTimeMillis(), email, operation, amountAsDouble);
       response.sendRedirect("/useraccount?message=Deposit successful!");
       return;
     }
@@ -68,8 +65,7 @@ public class BankOperationHandler extends HttpServlet {
     boolean success = fundsRepository.withdraw(amountAsDouble, email);
 
     if (success) {
-      date = new Date();
-      fundsRepository.updateHistory(dateFormat.format(date), email, operation, amountAsDouble);
+      fundsRepository.updateHistory(System.currentTimeMillis(), email, operation, amountAsDouble);
       response.sendRedirect("/useraccount?message=Withdraw successful!");
       return;
     }
