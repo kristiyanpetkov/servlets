@@ -96,15 +96,14 @@ public class PersistentFundsRepository implements FundsRepository {
     return succesfull;
   }
 
-  public void updateHistory(Long date, String email, String operation, Double amount) {
+  public void updateHistory(String email, String operation, Double amount) {
     Connection connection = connectionProvider.get();
     PreparedStatement statement = null;
     try {
-      statement = connection.prepareStatement("INSERT INTO transactions (date, email, operation, amount) VALUES (?,?,?,?)");
-      statement.setLong(1, date);
-      statement.setString(2, email);
-      statement.setString(3, operation);
-      statement.setDouble(4, amount);
+      statement = connection.prepareStatement("INSERT INTO transactions (date, email, operation, amount) VALUES ("+System.currentTimeMillis()+",?,?,?)");
+      statement.setString(1, email);
+      statement.setString(2, operation);
+      statement.setDouble(3, amount);
       statement.execute();
     } catch (SQLException e) {
       e.printStackTrace();

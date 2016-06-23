@@ -33,6 +33,23 @@ public class TransactionHistoryTest {
   HttpServletResponse response;
 
   @Test
+  public void pageWithNoParameter() throws Exception {
+    final ByteArrayOutputStream out = new ByteArrayOutputStream();
+    TransactionHistory transactionHistory = new TransactionHistory(fundsRepository);
+
+    context.checking(new Expectations() {{
+      oneOf(response).getWriter();
+      will(returnValue(new PrintWriter(out)));
+
+      oneOf(request).getParameter("page");
+      will(returnValue(null));
+
+      oneOf(fundsRepository).getHistory(21, 0);
+    }});
+    transactionHistory.doGet(request, response);
+  }
+
+  @Test
   public void firstPage() throws Exception {
     final ByteArrayOutputStream out = new ByteArrayOutputStream();
     TransactionHistory transactionHistory = new TransactionHistory(fundsRepository);
@@ -40,6 +57,9 @@ public class TransactionHistoryTest {
     context.checking(new Expectations() {{
       oneOf(response).getWriter();
       will(returnValue(new PrintWriter(out)));
+
+      oneOf(request).getParameter("page");
+      will(returnValue("1"));
 
       oneOf(request).getParameter("page");
       will(returnValue("1"));
@@ -60,10 +80,16 @@ public class TransactionHistoryTest {
       oneOf(request).getParameter("page");
       will(returnValue("1"));
 
+      oneOf(request).getParameter("page");
+      will(returnValue("1"));
+
       oneOf(fundsRepository).getHistory(21, 0);
 
       oneOf(response).getWriter();
       will(returnValue(new PrintWriter(out)));
+
+      oneOf(request).getParameter("page");
+      will(returnValue("2"));
 
       oneOf(request).getParameter("page");
       will(returnValue("2"));
