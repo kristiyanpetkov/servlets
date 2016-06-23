@@ -138,21 +138,4 @@ public class PersistentFundsRepository implements FundsRepository {
     }
     return transactions;
   }
-
-  public Integer getNumberOfID() {
-    Connection connection = connectionProvider.get();
-    ResultSet resultSet = null;
-    PreparedStatement statement;
-    Integer counter = null;
-    try {
-      statement = connection.prepareStatement("SELECT COUNT(*) FROM transactions");
-      resultSet = statement.executeQuery();
-      while (resultSet.next()) {
-        counter = resultSet.getInt(1);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return counter;
-  }
 }
