@@ -3,6 +3,7 @@ package com.clouway.adapter.persistence;
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.Session;
 import com.clouway.core.SessionRepository;
+import com.google.inject.Inject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 public class PersistentSessionRepository implements SessionRepository {
   private ConnectionProvider connectionProvider;
 
+  @Inject
   public PersistentSessionRepository(ConnectionProvider connectionProvider) {
     this.connectionProvider = connectionProvider;
   }

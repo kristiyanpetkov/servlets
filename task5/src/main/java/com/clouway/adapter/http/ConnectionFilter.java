@@ -1,5 +1,6 @@
 package com.clouway.adapter.http;
 
+import com.google.inject.Singleton;
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
 
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 25.05.16.
  */
+@Singleton
 public class ConnectionFilter implements Filter {
   private static ThreadLocal<Connection> connections = new ThreadLocal<Connection>();
   private MysqlConnectionPoolDataSource dataSource;

@@ -5,6 +5,8 @@ import com.clouway.core.FundsRepository;
 import com.clouway.core.OnlineUsers;
 import com.clouway.core.SessionRepository;
 import com.clouway.core.UserRepository;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +20,14 @@ import java.io.PrintWriter;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
+@Singleton
 @WebServlet(name = "UserAccount")
 public class UserAccount extends HttpServlet {
   private FundsRepository fundsRepository;
   private SessionRepository sessionRepository;
   private CookieFinder cookieFinder;
 
+  @Inject
   public UserAccount(FundsRepository fundsRepository, SessionRepository sessionRepository, CookieFinder cookieFinder) {
     this.fundsRepository = fundsRepository;
     this.sessionRepository = sessionRepository;

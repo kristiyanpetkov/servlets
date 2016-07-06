@@ -1,11 +1,14 @@
 package com.clouway.core;
 
+import com.google.inject.Singleton;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
+@Singleton
 public class DataValidator implements Validator {
   public boolean isValid(String email, String password) {
     boolean result = false;

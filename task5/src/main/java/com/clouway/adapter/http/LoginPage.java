@@ -2,6 +2,8 @@ package com.clouway.adapter.http;
 
 
 import com.clouway.core.SessionRepository;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,9 +18,11 @@ import java.io.PrintWriter;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
 @WebServlet(name = "LoginPage")
+@Singleton
 public class LoginPage extends HttpServlet {
   private SessionRepository sessionRepository;
 
+  @Inject
   public LoginPage(SessionRepository sessionRepository) {
     this.sessionRepository = sessionRepository;
   }

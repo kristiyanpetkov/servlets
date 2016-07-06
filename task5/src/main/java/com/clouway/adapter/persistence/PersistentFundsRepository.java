@@ -3,6 +3,7 @@ package com.clouway.adapter.persistence;
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
 import com.clouway.core.Transaction;
+import com.google.inject.Inject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +22,7 @@ public class PersistentFundsRepository implements FundsRepository {
 
   private ConnectionProvider connectionProvider;
 
+  @Inject
   public PersistentFundsRepository(ConnectionProvider connectionProvider) {
     this.connectionProvider = connectionProvider;
   }

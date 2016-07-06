@@ -2,6 +2,8 @@ package com.clouway.adapter.http;
 
 import com.clouway.core.CookieFinder;
 import com.clouway.core.SessionRepository;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -13,10 +15,12 @@ import java.io.IOException;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 02.06.16.
  */
+@Singleton
 public class LogoutController extends HttpServlet {
   private SessionRepository sessionRepository;
   private CookieFinder cookieFinder;
 
+  @Inject
   public LogoutController(SessionRepository sessionRepository, CookieFinder cookieFinder) {
     this.sessionRepository = sessionRepository;
     this.cookieFinder = cookieFinder;

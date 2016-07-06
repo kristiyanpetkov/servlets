@@ -3,6 +3,8 @@ package com.clouway.adapter.http;
 import com.clouway.core.User;
 import com.clouway.core.UserRepository;
 import com.clouway.core.Validator;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,11 +16,13 @@ import java.io.IOException;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
+@Singleton
 @WebServlet(name = "RegisterController")
 public class RegisterController extends HttpServlet {
   private UserRepository userRepository;
   private Validator userValidator;
 
+  @Inject
   public RegisterController(UserRepository userRepository, Validator userValidator) {
     this.userRepository = userRepository;
     this.userValidator = userValidator;

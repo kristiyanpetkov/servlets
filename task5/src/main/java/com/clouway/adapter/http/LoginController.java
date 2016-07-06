@@ -5,6 +5,8 @@ import com.clouway.core.Session;
 import com.clouway.core.SessionRepository;
 import com.clouway.core.UserRepository;
 import com.clouway.core.Validator;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,12 +20,14 @@ import java.io.IOException;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
 @WebServlet(name = "LoginController")
+@Singleton
 public class LoginController extends HttpServlet {
   private UserRepository userRepository;
   private SessionRepository sessionRepository;
   private Validator userValidator;
   private RandomGenerator randomGenerator;
 
+  @Inject
   public LoginController(UserRepository userRepository, SessionRepository sessionRepository, Validator userValidator, RandomGenerator randomGenerator) {
     this.userRepository = userRepository;
     this.sessionRepository = sessionRepository;

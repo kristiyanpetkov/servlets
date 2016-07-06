@@ -4,6 +4,8 @@ import com.clouway.core.CookieFinder;
 import com.clouway.core.FundsRepository;
 import com.clouway.core.SessionRepository;
 import com.clouway.core.Validator;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,13 +19,14 @@ import java.io.IOException;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 08.06.16.
  */
 @WebServlet(name = "BankOperationHandler")
+@Singleton
 public class BankOperationHandler extends HttpServlet {
   private FundsRepository fundsRepository;
   private Validator validator;
   private CookieFinder cookieFinder;
   private SessionRepository sessionRepository;
 
-
+  @Inject
   public BankOperationHandler(FundsRepository fundsRepository, Validator validator, CookieFinder cookieFinder, SessionRepository sessionRepository) {
     this.fundsRepository = fundsRepository;
     this.validator = validator;

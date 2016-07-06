@@ -3,6 +3,8 @@ package com.clouway.adapter.http;
 import com.clouway.core.CookieFinder;
 import com.clouway.core.Session;
 import com.clouway.core.SessionRepository;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -20,10 +22,12 @@ import java.io.IOException;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 08.06.16.
  */
 @WebFilter(filterName = "LoginFilter")
+@Singleton
 public class LoginFilter implements Filter {
   private SessionRepository sessionRepository;
   private CookieFinder cookieFinder;
 
+  @Inject
   public LoginFilter(SessionRepository sessionRepository, CookieFinder cookieFinder) {
     this.sessionRepository = sessionRepository;
     this.cookieFinder = cookieFinder;
