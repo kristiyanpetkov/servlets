@@ -18,7 +18,6 @@ import java.util.List;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 13.06.16.
  */
 @Singleton
-@WebServlet(name = "TransactionHistory")
 public class TransactionHistory extends HttpServlet {
   private FundsRepository fundsRepository;
   public static final int PAGE_SIZE = 20;

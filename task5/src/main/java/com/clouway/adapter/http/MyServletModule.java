@@ -9,7 +9,7 @@ public class MyServletModule extends ServletModule {
   @Override
   protected void configureServlets() {
     filter("/*").through(ConnectionFilter.class);
-    filter("/useraccout", "/history", "/bankoperationhandler").through(SecurityFilter.class);
+    filter("/*").through(SecurityFilter.class);
     filter("/login").through(LoginFilter.class);
 
     serve("/login").with(LoginPage.class);

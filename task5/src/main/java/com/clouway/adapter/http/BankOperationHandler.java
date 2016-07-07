@@ -18,7 +18,6 @@ import java.io.IOException;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 08.06.16.
  */
-@WebServlet(name = "BankOperationHandler")
 @Singleton
 public class BankOperationHandler extends HttpServlet {
   private FundsRepository fundsRepository;

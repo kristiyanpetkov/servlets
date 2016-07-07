@@ -19,7 +19,6 @@ import java.io.IOException;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 27.05.16.
  */
-@WebServlet(name = "LoginController")
 @Singleton
 public class LoginController extends HttpServlet {
   private UserRepository userRepository;

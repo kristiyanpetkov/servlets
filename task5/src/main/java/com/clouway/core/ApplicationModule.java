@@ -15,11 +15,6 @@ public class ApplicationModule extends AbstractModule {
   }
 
   @Provides
-  public ConnectionProvider getConnection() {
-    return new PerRequestConnectionProvider();
-  }
-
-  @Provides
   public CookieFinder getCookie() {
     return new CookieFinderImpl();
   }

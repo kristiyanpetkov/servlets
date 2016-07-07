@@ -16,7 +16,7 @@
   </filter-mapping>
 
   <listener>
-    <listener-class>com.clouway.adapter.http.MyGuiceServletConfig</listener-class>
+    <listener-class>com.clouway.server.AppConfig</listener-class>
   </listener>
 
 </web-app>

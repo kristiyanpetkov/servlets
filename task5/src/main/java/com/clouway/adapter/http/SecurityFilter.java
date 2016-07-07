@@ -38,7 +38,12 @@ public class SecurityFilter implements Filter {
     Cookie[] cookies = request.getCookies();
     Cookie cookie = cookieFinder.find(cookies);
 
-    if(cookie==null){
+    if (request.getRequestURI().contains("login") || request.getRequestURI().contains("register")) {
+      filterChain.doFilter(request, response);
+      return;
+    }
+
+    if (cookie == null) {
       response.sendRedirect("/login?errorMsg=Session expired! Please log in again!");
       return;
     }

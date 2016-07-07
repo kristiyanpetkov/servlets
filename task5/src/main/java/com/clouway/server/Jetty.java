@@ -1,7 +1,6 @@
 package com.clouway.server;
 
 
-import com.clouway.adapter.http.MyGuiceServletConfig;
 import com.google.inject.servlet.GuiceFilter;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.DefaultServlet;
@@ -27,7 +26,7 @@ public class Jetty {
     contextHandler.addFilter(GuiceFilter.class,"/*", EnumSet.allOf(DispatcherType.class));
     contextHandler.addServlet(DefaultServlet.class,"/");
     contextHandler.setContextPath("/");
-    contextHandler.addEventListener(new MyGuiceServletConfig());
+    contextHandler.addEventListener(new AppConfig());
     server.setHandler(contextHandler);
     try {
       server.start();

@@ -17,7 +17,6 @@ import java.io.PrintWriter;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
-@WebServlet(name = "LoginPage")
 @Singleton
 public class LoginPage extends HttpServlet {
   private SessionRepository sessionRepository;

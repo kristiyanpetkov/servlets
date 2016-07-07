@@ -21,7 +21,6 @@ import java.io.IOException;
 /**
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 08.06.16.
  */
-@WebFilter(filterName = "LoginFilter")
 @Singleton
 public class LoginFilter implements Filter {
   private SessionRepository sessionRepository;
@@ -40,9 +39,9 @@ public class LoginFilter implements Filter {
     HttpServletRequest request = (HttpServletRequest) req;
     HttpServletResponse response = (HttpServletResponse) resp;
     sessionRepository.cleanExpired();
-    Cookie cookie=null;
+    Cookie cookie = null;
     Cookie[] cookies = request.getCookies();
-    if(cookies!=null) {
+    if (cookies != null) {
       cookie = cookieFinder.find(cookies);
     }
 

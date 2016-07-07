@@ -1,5 +1,6 @@
 package com.clouway.adapter.persistence;
 
+import com.clouway.adapter.http.PerRequestConnectionProvider;
 import com.clouway.core.ConnectionProvider;
 import com.clouway.core.FundsRepository;
 import com.clouway.core.SessionRepository;
@@ -14,6 +15,11 @@ public class PersistenceModule extends AbstractModule {
   @Override
   protected void configure() {
 
+  }
+
+  @Provides
+  public ConnectionProvider getConnection() {
+    return new PerRequestConnectionProvider();
   }
 
   @Provides

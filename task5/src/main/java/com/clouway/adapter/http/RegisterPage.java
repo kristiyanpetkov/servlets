@@ -14,7 +14,6 @@ import java.io.PrintWriter;
  * Created by Kristiyan Petkov  <kristiqn.l.petkov@gmail.com> on 19.05.16.
  */
 @Singleton
-@WebServlet(name = "RegisterPage")
 public class RegisterPage extends HttpServlet {
 
   @Override
